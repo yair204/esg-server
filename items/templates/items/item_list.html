@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Item List</title>
+</head>
+<body>
+    <h1>Items</h1>
+    <ul>
+        {% for item in items %}
+            <li>{{ item.name }} - ${{ item.price }} (Category: {{ item.category.name }})
+                <a href="{% url 'delete_item' item.id %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_item' %}">Add New Item</a>
+</body>
+</html>
