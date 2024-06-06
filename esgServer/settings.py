@@ -48,10 +48,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.gis',
     "items",
     "rest_framework",
     "corsheaders",
-    "manager_accounts"
+    "manager_accounts",
+    "restaurants"
 ]
 
 MIDDLEWARE = [
@@ -100,7 +102,7 @@ WSGI_APPLICATION = "esgServer.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'postgres',
         'USER': 'masteruser',
         'PASSWORD': 'dagan204',
