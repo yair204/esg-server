@@ -36,6 +36,7 @@ class UserByEmailAndPassword(APIView):
             user = User.objects.get(email=email)
             if check_password(password, user.password):
                 serializer = UserSerializer(user)
+                print(serializer.data)
                 return Response(serializer.data)
             else:
                 return Response({'error': 'Incorrect password'}, status=status.HTTP_400_BAD_REQUEST)

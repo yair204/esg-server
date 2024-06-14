@@ -26,6 +26,8 @@ urlpatterns = [
     path('api/accounts/', include('accounts.urls')),
     path('api/manager/', include('manager_accounts.urls')),
     path('api/restaurants/', include('restaurants.urls')),
+    path('api/reports/reduce/', include('reduceReports.urls')),
+
     
      
     ]

@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "manager_accounts",
-    "restaurants"
+    "restaurants",
+    "reduceReports"
 ]
 
 MIDDLEWARE = [
