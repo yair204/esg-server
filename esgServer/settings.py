@@ -71,9 +71,6 @@ MIDDLEWARE = [
 
 ]
 
-ALLOWED_HOSTS = ['esg-env.eba-wn3pmwmj.us-west-2.elasticbeanstalk.com']
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 ROOT_URLCONF = "esgServer.urls"
 
 TEMPLATES = [
