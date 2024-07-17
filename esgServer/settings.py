@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,16 +31,27 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '10.0.2.2',  
-   '16.170.241.68',
-   'ec2-16-170-241-68.eu-north-1.compute.amazonaws.com',
+    '16.170.241.68',
+    'ec2-16-170-241-68.eu-north-1.compute.amazonaws.com',
 
 ]
 
 REST_FRAMEWORK = {
+     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
 }
 
+
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    
+}
 
 # Application definition
 
@@ -57,7 +69,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "manager_accounts",
     "restaurants",
-    "reduceReports"
+    "reduceReports",
+    
 ]
 
 MIDDLEWARE = [
@@ -75,10 +88,16 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "esgServer.urls"
 
+# LOGIN_REDIRECT_URL = '/api/reports/reduce/create-report/'
+LOGIN_REDIRECT_URL = '/'  # Redirect URL after login
+LOGOUT_REDIRECT_URL = '/'  # Redirect URL after logout
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+         'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -146,7 +165,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-AUTH_USER_MODEL = 'accounts.User'
+# AUTH_USER_MODEL = 'auth.User'
 
 
 # Static files (CSS, JavaScript, Images)

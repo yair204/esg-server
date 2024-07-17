@@ -3,6 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import ReduceReport
 from .serializers import ReduceReportSerializer
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .forms import ReduceReportForm
+from django.contrib.auth.decorators import login_required
+
 
 class ReduceReportCreateAPIView(APIView):
     def post(self, request):
@@ -14,7 +19,6 @@ class ReduceReportCreateAPIView(APIView):
 
 class ReduceReportByCompanyAPIView(APIView):
     def get(self, request, company_name):
-        print(" ~ company_name:", company_name)
         try:
             reports = ReduceReport.objects.filter(company_name=company_name)
             serializer = ReduceReportSerializer(reports, many=True)
@@ -22,3 +26,15 @@ class ReduceReportByCompanyAPIView(APIView):
             return Response(serializer.data)
         except ReduceReport.DoesNotExist:
             return Response({'error': 'No reports found for this company'}, status=status.HTTP_404_NOT_FOUND)
+
+
+@login_required
+def create_reduce_report(request):
+    if request.method == 'POST':
+        form = ReduceReportForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('create-reduce-report')  
+    else:
+        form = ReduceReportForm()
+    return render(request, 'create_reduce_report.html', {'form': form})

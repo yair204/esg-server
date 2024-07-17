@@ -17,16 +17,32 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from . import views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('items/', include('items.urls')), 
     path('api/', include('items.api_urls')),  
-    path('api/accounts/', include('accounts.urls')),
-    path('api/manager/', include('manager_accounts.urls')),
+    # path('api/accounts/', include('accounts.urls')),
+    path('managers/', include('manager_accounts.urls')),
     path('api/restaurants/', include('restaurants.urls')),
     path('api/reports/reduce/', include('reduceReports.urls')),
+    
+    path('', views.redirect_to_login, name='home'),  
+
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', views.signup, name='signup'), 
+    path('accounts/login/', views.login, name='login'),
+    path('accounts/logout/', views.logout_view, name='logout'),
+
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     
      

@@ -1,0 +1,19 @@
+<!-- reduceReports/templates/create_reduce_report.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Reduce Report</title>
+</head>
+<body>
+    <h2>Create Reduce Report</h2>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
